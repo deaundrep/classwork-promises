@@ -1,5 +1,31 @@
 // 1.
 // Create a promise called myFirstPromise
+let myFirstPromise = new Promise((resolve, reject) => {
+  let bool = true;
+  let rand = Math.floor(Math.random() * 10 + 1);
+
+  if(bool){
+    setTimeout(() => {
+    resolve(rand);
+    }, 2000)
+  } else{
+    setTimeout(() => {
+      reject('Cannot computer random number');
+    }, 2000)
+  }
+});
+
+myFirstPromise.then((randomNum) => {
+  console.log(`I have my random number ${randomNum} and I will multiply it by 5`)
+  let newNum = randomNum * 5
+  return newNum
+})
+.then((nextNum) => {
+console.log(`Here is the result of my random number multiplied ${nextNum}`)
+})
+.catch((err) => {
+  console.log(err);
+});
 
 // Inside the promise
 // Create a boolean variable check and set it to true
@@ -44,3 +70,33 @@ let data = [
   { firstName: 'Doug', lastName: 'Lawson' },
   { firstName: 'Sandra', lastName: 'Mathers' },
 ];
+
+let getDataPromise = ((data) => {
+  return new Promise((resolve, reject) => {
+
+    let err = false;
+    if(err){
+      reject('Something went wrong');
+    }
+      setTimeout(() => {
+        resolve(data)
+      }, 4000)
+    })
+  })
+
+getDataPromise(data)
+.then((data) => {
+  console.log(data);
+  return data;
+})
+
+.then((data) => {
+data.forEach(element => {
+  console.log(`Hello ${element.firstName} ${element.lastName}`)
+})
+return data;
+})
+.catch((err) => {
+  console.log(`${err}: Something went wrong. `);
+})
+
